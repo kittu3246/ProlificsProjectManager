@@ -53,3 +53,12 @@ ADD CONSTRAINT FK_ProjectEmployeeMapping_Project
 FOREIGN KEY (ProjectId) 
 REFERENCES Projects(ProjectId)
 ON DELETE CASCADE;
+
+//retreiving all the employes to  projects assigned details query
+
+ SELECT P.ProjectId AS ProjectId, P.ProjectName AS ProjectName, P.StartDate AS ProjectStartDate, "
+                                            + "P.EndDate AS ProjectEndDate, COUNT(PE.EmployeeId) AS NumberOfEmployees, "
+                                            + "STRING_AGG(PE.EmployeeId, ',') AS EmployeeIds "
+                                            + "FROM Projects P "
+                                            + "LEFT JOIN ProjectEmployeeMapping PE ON P.ProjectId = PE.ProjectId "
+                                            + "GROUP BY P.ProjectId, P.ProjectName, P.StartDate, P.EndDate
